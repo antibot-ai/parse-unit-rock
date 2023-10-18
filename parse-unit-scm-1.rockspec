@@ -1,7 +1,7 @@
 package = 'parse-unit'
 version = 'scm-1'
 description = {
-  summary = 'Removes duplicates from table',
+  summary = 'Parsing units',
   license = 'MIT'
 }
 source  = {
