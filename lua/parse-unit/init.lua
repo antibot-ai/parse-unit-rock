@@ -1,13 +1,17 @@
 ---
--- Парсит строку с юнитами и возвращает числовое значение
+-- Парсит строку с юнитом и возвращает числовое значение
+-- @module parseUnit
 local parseUnit
 
----
--- @param str Строка для парсинга
--- @param unit_type Тип юнита -
--- 'time', 'number', 'request', 'operation', 'data_size'.
--- По умолчанию 'number'
+--- Парсит строку с юнитом
+-- @param str (string) Строка для парсинга
+-- @param[opt] unit_type (string) Тип юнита
+  -- ['time', 'number', 'request', 'operation', 'data_size'].
+  -- По умолчанию 'number'
 -- @return Значение или nil
+-- @usage
+  -- local value = parseUnit('1h', 'time')
+  -- print(value) -- 3600 секунд
 function parseUnit(str, unit_type)
   local value, unit = str:match('^(%d+)(.-)$')
   unit_type = unit_type or 'number'
@@ -48,7 +52,7 @@ function parseUnit(str, unit_type)
       return value * 31536000
     end
 
-  -- Числительные
+  -- Числа
   elseif unit_type == 'number' then
     if unit == 'k' then
       return value * 1000

@@ -9,15 +9,16 @@ local parseUnit = require('lua.parse-unit.init')
 --
 -- Парсинг времени
 g.test_time = function()
+  -- Согласно https://nginx.org/en/docs/syntax.html
+  --
   -- 1 секунда равна 10^9 или 1.000.000.000 наносекунд
   luatest.assert_equals(parseUnit('1000000000ns', 'time'), 1)
   -- 1 секунда равна 10^6 или 1.000.000 микросекунд
   luatest.assert_equals(parseUnit('1000000us', 'time'), 1)
-  -- 1 секунда равна 10^3 или 1.000 микросекунд
+  -- 1 секунда равна 10^3 или 1.000 миллисекунд
   luatest.assert_equals(parseUnit('1000ms', 'time'), 1)
   -- 1 секунда равна 1 секунде
   luatest.assert_equals(parseUnit('1s', 'time'), 1)
-
   -- 1 минута равна 60 секунд
   luatest.assert_equals(parseUnit('1m', 'time'), 60)
   -- 1 час равен 3600 секунд
@@ -26,14 +27,9 @@ g.test_time = function()
   luatest.assert_equals(parseUnit('1d', 'time'), 86400)
   -- 1 неделя равен 604800 секунд
   luatest.assert_equals(parseUnit('1w', 'time'), 604800)
-  -- 1 неделя равен 2592000 секунд
+  -- 1 месяц равен ~2592000 секунд
   luatest.assert_equals(parseUnit('1M', 'time'), 2592000)
-
-  -- Согласно https://nginx.org/en/docs/syntax.html
-  --
-  -- 1 месяц равен 2592000 секунд
-  luatest.assert_equals(parseUnit('1M', 'time'), 2592000)
-  -- 1 год равен 31536000 секунд
+  -- 1 год равен ~31536000 секунд
   luatest.assert_equals(parseUnit('1y', 'time'), 31536000)
 end
 
